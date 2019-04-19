@@ -1,5 +1,10 @@
 <?php
+// TODO: Bättre testdata
+// TODO: Använd ej superglobal. Istället $component_magic
+
 class ComponentMagic {
+  private $global;
+  
   public function __construct($root) {
     $this->root = $root;
   }
@@ -32,7 +37,7 @@ class ComponentMagic {
   }
 
   //Component
-  function component($id, $args = []) {  
+  function component($id, $args = []) {
     $this->vars($id);
     if(!file_exists($GLOBALS['io']['component']['filepath'])) return false;
     $data = $this->data($args);
@@ -54,6 +59,7 @@ class ComponentMagic {
   }
 
   function buffer($id, $io_data) {
+    print_r($io_data);
     ob_start();
     if(isset($io_data)) {
       extract($io_data);
@@ -68,5 +74,5 @@ class ComponentMagic {
 
 function component($id, $args = []) {
   $ComponentMagic = new ComponentMagic(__DIR__ . '/component-magic.php');
-  $ComponentMagic->component($id, $args);
+  return $ComponentMagic->component($id, $args);
 }
