@@ -1,0 +1,1 @@
+<?= component('item', [$items['0'] => $item]); ?>sdsa
