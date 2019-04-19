@@ -1,7 +1,12 @@
 <?php
-include __DIR__ . '/component-magic.php';
+include __DIR__ . '/lib/autoload.php';
+include __DIR__ . '/lib/component.php';
+include __DIR__ . '/lib/controller.php';
+include __DIR__ . '/lib/render.php';
+include __DIR__ . '/lib/root.php';
 
-$ComponentMagic = new ComponentMagic(__DIR__ . '/components');
-$page = $ComponentMagic->render('--about', ['controller_data' => 'Controller data']);
+// TODO: Tests
 
-echo $page;
+setComponentRoot(__DIR__ . '/components');
+
+echo render('--about', ['render_data' => 'Render data']);

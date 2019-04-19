@@ -1,1 +1,1 @@
-<?= component('item', [$items['0'] => $item]); ?>sdsa
+<?= component('gallery/items/item', ['input' => 'hej hopp']); ?>

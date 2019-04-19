@@ -1,2 +1,2 @@
-<?= $item; ?>
-<?= print_r($items); ?>ee
+<?= $input; ?>
+<?php print_r($items); ?>
