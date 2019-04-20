@@ -1,5 +1,7 @@
 # Component Magic
 
+*Version 0.1*
+
 If you are making a CMS, this library might come in handy. It loads components (snippets if you like) with controllers.
 
 ## In short
@@ -17,7 +19,7 @@ You can look at the `index.php` file of this project to see how it works.
 First you need to set the root of the project.
 
 ```php
-setComponentRoot(__DIR__ . '/components');
+ComponentMagic::root(__DIR__ . '/components');
 ```
 
 ### Render the template component
@@ -55,7 +57,7 @@ return function($component, $args) {
 
 ### Component
 
-Inside a component it can look like below. I always have access to the controller arguments which means I have access to `$hello` in the above example. I can also send additional arguments like `$foo` below which can then be found in the `gallery` component.
+Inside a component it can look like below. You always have access to the controller arguments which means you have access to `$hello` in the above example. You can also send additional arguments like `$foo` below which can then be found in the `gallery` component.
 
 If component arguments and controller arguments has the same key, the component argument will overwrite the controller argumnents.
 
@@ -73,4 +75,16 @@ You can nest components an infinite number of times. Just send the arguments fro
 
 ## The use of global variable
 
+Global variables are considered to be bad practise and this repo uses a global variable. That's because of that we don't want to send the controller arguments every time with the `render()` function.
+
+## Requirements
+
+- PHP 7+
+
 ## Donate
+
+Donate to [DevoneraAB](https://www.paypal.me/DevoneraAB) if you want.
+
+## License
+
+MIT
