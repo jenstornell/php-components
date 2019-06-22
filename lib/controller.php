@@ -1,13 +1,18 @@
 <?php
-namespace JensTornell\ComponentMagic;
+namespace JensTornell\Components;
 
 function controller($component, $args) {
-  global $component_magic;
+  $roots = @$GLOBALS['component']['root'];
 
-  $filepath = $component_magic['root'] . '/' . $component . '/controller.php'; // Root
-      
-  if(!file_exists($filepath)) return;
+  if(isset($roots)) {
+    foreach($roots as $root) {
+      $filepath = $root . '/' . $component . '/controller.php';
 
-  $controller = include($filepath);
-  $component_magic['controller'] = $controller($component, $args);
+      if(file_exists($filepath)) {
+        $controller = include($filepath);
+        $GLOBALS['component']['controller'] = $controller($component, $args);
+        return;
+      }
+    }
+  }
 }

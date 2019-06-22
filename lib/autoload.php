@@ -1,12 +1,15 @@
 <?php
-namespace JensTornell\ComponentMagic;
+namespace JensTornell\Components;
 
 function autoload($component) {
-  global $component_magic;
+  $roots = $GLOBALS['component']['root'];
 
-  $filepath = $component_magic['root'] . '/' . $component . '/autoload.php'; // ROOT
+  foreach($roots as $path) {
+    $filepath = $path . '/' . $component . '/autoload.php';
     
-  if(file_exists($filepath)) {
-    include($filepath);
+    if(file_exists($filepath)) {
+      include($filepath);
+      return;
+    }
   }
 }

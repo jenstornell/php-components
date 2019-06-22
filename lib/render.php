@@ -1,8 +1,8 @@
 <?php
 // Render
 function render($component, $args) {
-  JensTornell\ComponentMagic\autoload($component);
-  JensTornell\ComponentMagic\controller($component, $args);
+  JensTornell\Components\autoload($component);
+  JensTornell\Components\controller($component, $args);
   
   return component($component);
 }
@@ -10,6 +10,6 @@ function render($component, $args) {
 
 // Component
 function component($id, $args = []) {
-  $Component = new JensTornell\ComponentMagic\Component();
+  $Component = new JensTornell\Components\Component();
   return $Component->init($id, $args);
 }

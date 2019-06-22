@@ -1,30 +1,36 @@
 <?php
-namespace JensTornell\ComponentMagic;
+namespace JensTornell\Components;
 
 class Component {
-  private $global;
-
   function init($id, $args) {
     $this->globalize($id);
-
-    if(!$this->exists()) return;
     return $this->buffer($this->merge($args));
   }
 
   function globalize($id) {
-    global $component_magic;
     $this->id = $id;
-    $this->global = $component_magic;
-    $this->filepath = $this->global['root'] . '/' . $this->filename();
-    $this->controller = (isset($this->global['controller'])) ? $this->global['controller'] : [];
+    $this->filepaths = $this->filepaths();
+    $this->controller = (isset($GLOBALS['component']['controller'])) ? $GLOBALS['component']['controller'] : [];
+  }
+
+  function filepaths() {
+    $this->roots = @$GLOBALS['component']['root'];
+    $filepaths = [];
+
+    if(isset($this->roots)) {
+      foreach($this->roots as $path) {
+        $filepaths[] = $path . '/' . $this->filename();
+      }
+    }
+    return $filepaths;
   }
 
   function merge($args) {
     return array_merge($this->controller, $args);
   }
 
-  function exists() {
-    return (file_exists($this->filepath));
+  function exists($filepath) {
+    return file_exists($filepath);
   }
 
   function extension() {
@@ -41,9 +47,13 @@ class Component {
       extract($io_data);
       unset($io_data);
     }
-    include $this->filepath;
-    $contents = ob_get_contents();
-    ob_end_clean();
-    return $contents;
+    foreach($this->filepaths as $filepath) {
+      if(file_exists($filepath)) {
+        include $filepath;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+      }
+    }
   }
 }

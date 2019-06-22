@@ -1,10 +1,6 @@
 <?php
-include __DIR__ . '/lib/autoload.php';
-include __DIR__ . '/lib/component.php';
-include __DIR__ . '/lib/controller.php';
-include __DIR__ . '/lib/render.php';
-include __DIR__ . '/lib/root.php';
+include __DIR__ . '/lib/init.php';
 
-ComponentMagic::root(__DIR__ . '/components');
+$GLOBALS['component']['root'] = [__DIR__ . '/components', __DIR__ . '/components2'];
 
 echo render('--about', ['render_data' => 'Render data']);

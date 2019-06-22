@@ -1,6 +1,6 @@
-# Component Magic
+# Components
 
-*Version 0.1*
+*Version 0.2*
 
 If you are making a CMS, this library might come in handy. It loads components (snippets if you like) with controllers.
 
@@ -19,7 +19,7 @@ You can look at the `index.php` file of this project to see how it works.
 First you need to set the root of the project.
 
 ```php
-ComponentMagic::root(__DIR__ . '/components');
+$GLOBALS['component']['root'] = [__DIR__ . '/components'];
 ```
 
 ### Render the template component
@@ -75,7 +75,7 @@ You can nest components an infinite number of times. Just send the arguments fro
 
 ## The use of global variable
 
-Global variables are considered to be bad practise and this repo uses a global variable. That's because of that we don't want to send the controller arguments every time with the `render()` function.
+Global variables are considered to be bad practise, but this repo uses a global variable. That's because that we don't want to send the controller arguments every time with the `render()` function.
 
 ## Requirements
 
