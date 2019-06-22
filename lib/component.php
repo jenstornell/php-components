@@ -10,7 +10,8 @@ class Component {
   function globalize($id) {
     $this->id = $id;
     $this->filepaths = $this->filepaths();
-    $this->controller = (isset($GLOBALS['component']['controller'])) ? $GLOBALS['component']['controller'] : [];
+    $this->controller = @$GLOBALS['component']['controller'];
+    if(!isset($this->controller)) $this->controller = [];
   }
 
   function filepaths() {
