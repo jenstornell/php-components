@@ -4,7 +4,8 @@ namespace JensTornell\Components;
 class Component {
   function init($id, $args) {
     $this->globalize($id);
-    return $this->buffer($this->merge($args));
+    $args = array_merge($this->controller, $args);
+    return $this->buffer($args);
   }
 
   function globalize($id) {
@@ -26,20 +27,11 @@ class Component {
     return $filepaths;
   }
 
-  function merge($args) {
-    return array_merge($this->controller, $args);
-  }
-
-  function exists($filepath) {
-    return file_exists($filepath);
-  }
-
-  function extension() {
-    return pathinfo($this->id, PATHINFO_EXTENSION);
-  }
-
   function filename() {
-    return !empty($this->extension()) ? $this->id : $this->id . '/component.php';
+    if(!empty(pathinfo($this->id, PATHINFO_EXTENSION))) {
+      return $this->id;
+     }
+     return $this->id . '/component.php';
   }
 
   function buffer($io_data) {
@@ -48,6 +40,7 @@ class Component {
       extract($io_data);
       unset($io_data);
     }
+    
     foreach($this->filepaths as $filepath) {
       if(file_exists($filepath)) {
         include $filepath;
